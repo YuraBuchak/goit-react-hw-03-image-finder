@@ -1,5 +1,6 @@
 import css from './styles.module.css';
 import Notiflix from 'notiflix';
+import PropTypes from 'prop-types';
 import { Component } from 'react';
 import { fetchPicture } from './Api';
 import { Loader } from './Loader';
@@ -71,12 +72,6 @@ export class ImageGallery extends Component {
         {isLoading && <Loader />}
         {pictures?.length === 0 && <span>Sorry, there are no pictures...</span>}
 
-        {/* {pictures?.length > 0 && (
-          <ul className={css.ImageGallery}>
-            <ImageGalleryItem pictures={pictures} />
-          </ul>
-        )} */}
-
         {pictures?.length > 0 && (
           <ul className={css.ImageGallery}>
             {pictures.map((picture, index) => (
@@ -92,3 +87,7 @@ export class ImageGallery extends Component {
     );
   }
 }
+
+ImageGallery.propTypes = {
+  searchText: PropTypes.string,
+};

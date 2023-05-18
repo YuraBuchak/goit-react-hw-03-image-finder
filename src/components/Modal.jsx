@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import css from './styles.module.css';
+import PropTypes from 'prop-types';
 
 export class Modal extends Component {
   handleEscape = e => {
@@ -32,3 +33,8 @@ export class Modal extends Component {
     );
   }
 }
+
+Modal.propTypes = {
+  src: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
+};
