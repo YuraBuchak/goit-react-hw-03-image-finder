@@ -64,7 +64,7 @@ export class ImageGallery extends Component {
   }
 
   render() {
-    const { pictures, isLoading, page, totalPages, showModal } = this.state;
+    const { pictures, isLoading, page, totalPages } = this.state;
 
     return (
       <>
