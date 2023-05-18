@@ -1,0 +1,79 @@
+import css from './styles.module.css';
+import { Component } from 'react';
+import { fetchPicture } from './Api';
+import { Loader } from './Loader';
+import { ImageGalleryItem } from './ImageGalleryItem';
+import { Button } from './Button';
+
+export class ImageGallery extends Component {
+  state = {
+    pictures: null,
+    isLoading: false,
+    page: 1,
+    totalPages: null,
+  };
+
+  handleLoadMorePicture = () => {
+    this.setState(prevState => ({
+      page: prevState.page + 1,
+    }));
+  };
+
+  async componentDidUpdate(prevProps, prevState) {
+    if (this.props.serchText !== prevProps.serchText) {
+      try {
+        this.setState({ pictures: null, page: 1, isLoading: true });
+
+        const { hits, totalHits } = await fetchPicture(
+          this.props.serchText,
+          this.state.page
+        );
+
+        this.setState({
+          pictures: hits,
+          totalPages: Math.ceil(totalHits / 12),
+          isLoading: false,
+        });
+
+        // console.log(dataPicture);
+      } catch (error) {
+        console.log(error);
+        this.setState({ isLoading: false });
+      }
+    }
+
+    if (prevState.page < this.state.page) {
+      try {
+        const { hits } = await fetchPicture(
+          this.props.serchText,
+          this.state.page
+        );
+
+        this.setState(prevState => ({
+          pictures: [...prevState.pictures, ...hits],
+        }));
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }
+
+  render() {
+    const { pictures, isLoading, page, totalPages } = this.state;
+
+    return (
+      <>
+        {isLoading && <Loader />}
+        {pictures?.length && (
+          <ul className={css.ImageGallery}>
+            <ImageGalleryItem pictures={pictures} />
+          </ul>
+        )}
+        {pictures?.length === 0 && <span>Sorry</span>}
+        {pictures?.length && page !== totalPages && (
+          <Button loadMore={this.handleLoadMorePicture} />
+        )}
+      </>
+    );
+  }
+}
