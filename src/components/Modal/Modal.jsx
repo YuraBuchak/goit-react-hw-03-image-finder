@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import css from './styles.module.css';
+import css from '../styles.module.css';
 import PropTypes from 'prop-types';
 
 export class Modal extends Component {
@@ -27,7 +27,7 @@ export class Modal extends Component {
     return (
       <div className={css.Overlay} onClick={this.handleBackdropClick}>
         <div className={css.Modal}>
-          <img src={this.props.src} alt="" />
+          <img src={this.props.src} alt={this.props.tags} />
         </div>
       </div>
     );
@@ -37,4 +37,5 @@ export class Modal extends Component {
 Modal.propTypes = {
   src: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
+  alt: PropTypes.string.isRequired,
 };

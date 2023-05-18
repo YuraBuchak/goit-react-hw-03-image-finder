@@ -1,4 +1,4 @@
-import css from './styles.module.css';
+import css from '../styles.module.css';
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 
@@ -8,7 +8,7 @@ export class Searchbar extends Component {
   };
 
   handleChangeInput = event => {
-    this.setState({ value: event.target.value.trim() });
+    this.setState({ value: event.target.value });
   };
 
   handleSubmitForm = event => {

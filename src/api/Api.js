@@ -1,7 +1,6 @@
 const defaultUrl = 'https://pixabay.com/api/';
 const ApiKey = '35063587-fa9231e1cb527798f33412cb6';
 const paramsHttp = {
-  //   page: '1',
   per_page: '12',
   image_type: 'photo',
   orientation: 'horizontal',
