@@ -1,4 +1,5 @@
 import css from './styles.module.css';
+import Notiflix from 'notiflix';
 import { Component } from 'react';
 import { fetchPicture } from './Api';
 import { Loader } from './Loader';
@@ -28,6 +29,10 @@ export class ImageGallery extends Component {
           this.props.serchText,
           this.state.page
         );
+
+        if (hits.length === 0) {
+          Notiflix.Notify.info('No results!');
+        }
 
         this.setState({
           pictures: hits,
@@ -64,13 +69,14 @@ export class ImageGallery extends Component {
     return (
       <>
         {isLoading && <Loader />}
-        {pictures?.length && (
+        {pictures?.length === 0 && <span>Sorry, there are no pictures...</span>}
+        {pictures?.length > 0 && (
           <ul className={css.ImageGallery}>
             <ImageGalleryItem pictures={pictures} />
           </ul>
         )}
-        {pictures?.length === 0 && <span>Sorry</span>}
-        {pictures?.length && page !== totalPages && (
+
+        {pictures?.length > 0 && page !== totalPages && (
           <Button loadMore={this.handleLoadMorePicture} />
         )}
       </>
