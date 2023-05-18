@@ -64,15 +64,24 @@ export class ImageGallery extends Component {
   }
 
   render() {
-    const { pictures, isLoading, page, totalPages } = this.state;
+    const { pictures, isLoading, page, totalPages, showModal } = this.state;
 
     return (
       <>
         {isLoading && <Loader />}
         {pictures?.length === 0 && <span>Sorry, there are no pictures...</span>}
-        {pictures?.length > 0 && (
+
+        {/* {pictures?.length > 0 && (
           <ul className={css.ImageGallery}>
             <ImageGalleryItem pictures={pictures} />
+          </ul>
+        )} */}
+
+        {pictures?.length > 0 && (
+          <ul className={css.ImageGallery}>
+            {pictures.map((picture, index) => (
+              <ImageGalleryItem key={index} picture={picture} />
+            ))}
           </ul>
         )}
 
