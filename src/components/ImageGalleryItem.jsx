@@ -23,7 +23,7 @@ export class ImageGalleryItem extends Component {
     return (
       <>
         <li className={css.ImageGalleryItemImage} onClick={this.toggleModal}>
-          <img src={webformatURL} alt="" />
+          <img className={css.image} src={webformatURL} alt="" />
         </li>
 
         {this.state.showModal && (
